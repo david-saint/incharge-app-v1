@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import AppStyles from '@/config/styles';
 import {
   View,
+  Platform,
+  UIManager,
   StatusBar,
   LayoutAnimation,
   KeyboardAvoidingView,
@@ -27,6 +29,15 @@ export default class ProfilingScreens extends Component {
 
   state = {
     activeIndex: 0,
+  }
+
+  constructor(props) {
+    super(props);
+
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental
+        && UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
   }
 
   componentDidMount() {

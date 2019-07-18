@@ -9,6 +9,7 @@ const AppStyles = {
     lightGrey: '#7f8c8d',
     separator: '#bdc3c7',
     primaryWhite: '#EBD1E4',
+    primaryDark: '#874676',
     white: 'white',
     black: 'black',
     mateBlack: '#333333',

@@ -25,13 +25,20 @@ const theme = {
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
+    text: AppStyles.colors.mateBlack,
     primary: AppStyles.colors.primaryColor,
     // TODO: Add the default colors for InCharge.
   },
   fonts: {
-    thin: AppStyles.fonts.FONT_THIN,
-    light: AppStyles.fonts.FONT_LIGHT,
-    regular: AppStyles.fonts.FONT_REGULAR,
+    thin: {
+      fontFamily: AppStyles.fonts.FONT_THIN,
+    },
+    light: {
+      fontFamily: AppStyles.fonts.FONT_LIGHT,
+    },
+    regular: {
+      fontFamily: AppStyles.fonts.FONT_REGULAR,
+    },
   },
 };
 

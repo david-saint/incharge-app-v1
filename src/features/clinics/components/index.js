@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { setToken } from '@/api/http';
 import AppStyles from '@/config/styles';
 import AppMetrics from '@/config/metrics';
-import { Searchbar } from 'react-native-paper';
 import { SafeAreaView } from 'react-navigation';
+import { GOOGLE_MAPS_APIKEY } from '@/api/constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from '@react-native-community/geolocation';
 import { getClinicsAPI, DEFAULT_PAGINATION } from '@/api/clinics';
+import {
+  Menu,
+  Button,
+  Surface,
+  Searchbar,
+} from 'react-native-paper';
 import MapView, {
   Marker,
   Callout,
@@ -15,7 +23,11 @@ import MapView, {
 } from 'react-native-maps';
 import {
   View,
+  Text,
   Alert,
+  Image,
+  FlatList,
+  TextInput,
   StatusBar,
 } from 'react-native';
 
@@ -39,18 +51,38 @@ export default class Index extends Component {
     page: 1,
     query: '',
     mode: 'km',
-    radius: 15,
+    radius: '15',
     clinics: [],
     position: null,
+    origin: undefined,
+    menuVisible: false,
     paginationData: {},
     sort: 'distance|ASC',
+    currentPosition: {},
+    previousPosition: {},
+    perPageVisible: false,
+    filtersVisible: false,
+    destination: undefined,
+    perPage: DEFAULT_PAGINATION,
   }
+
+  marker = {}
 
   componentDidMount() {
     // Get the user's current location
     Geolocation.getCurrentPosition(
       (position) => {
-        this.setState({ position });
+        this.setState({
+          position,
+          currentPosition: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          previousPosition: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+        });
         this._getClinics();
       },
       error => Alert.alert('Error', JSON.stringify(error)),
@@ -77,6 +109,7 @@ export default class Index extends Component {
       mode,
       query,
       radius,
+      perPage,
       position: { coords },
     } = this.state;
 
@@ -87,34 +120,139 @@ export default class Index extends Component {
       radius,
       search: query,
       with: 'location',
-      latitude: coords.latitude,
-      longitude: coords.longitude,
-      per_page: DEFAULT_PAGINATION,
+      per_page: perPage,
     };
+
+    if (query.length < 3) {
+      params.latitude = coords.latitude;
+      params.longitude = coords.longitude;
+    }
 
     getClinicsAPI(params)
       .then(({ data }) => this.setState({ clinics: data }))
       .catch(response => Alert.alert('Network Error', response));
   }
 
+  _search = _.debounce(() => this._getClinics(), 500);
+
+  _handleSearch = (query) => {
+    this.setState({ query });
+    this._search();
+  }
+
+  _renderClinicItem = ({ item }) => (
+    <Surface style={styles.listItem}>
+      <View style={styles.majorTextContain}>
+        <View style={styles.majorText}>
+          <Text style={styles.majorTextTop}>
+            {item.actual_distance}
+          </Text>
+          <Text style={styles.majorTextBottom}>
+            {
+              item.mode === 'km'
+                ? 'KILOMETERS'
+                : 'MILES'
+            }
+          </Text>
+        </View>
+        <Image
+          source={require('@/assets/images/tripline.png')}
+          style={styles.dividerImage}
+          resizeMode="contain" />
+      </View>
+      <View style={styles.minorTextContain}>
+        <Text style={styles.minorTextTitle}>
+          {
+            item.name > 28
+              ? `${((item.name).substring(0, 28))}...`
+              : item.name
+          }
+        </Text>
+        <Text style={styles.minorTextAddress}>
+          {
+            item.address > 22
+              ? `${((item.address).substring(0, 22))}...`
+              : item.address
+          }
+        </Text>
+        <Button
+          type="text"
+          icon="directions"
+          onPress={() => this._getDirection(item.latitude, item.longitude)}>
+            <Text style={styles.minorTextButton}>DIRECTIONS</Text>
+        </Button>
+      </View>
+    </Surface>
+  )
+
+  getRotation = (prevPos, curPos) => {
+    if (!prevPos) {
+      return 0;
+    }
+    const xDiff = curPos.latitude - prevPos.latitude;
+    const yDiff = curPos.longitude - prevPos.longitude;
+    return (Math.atan2(yDiff, xDiff) * 180.0) / Math.PI;
+  }
+
+  updateMap = () => {
+    const { currentPosition, previousPosition } = this.state;
+    const curRot = this.getRotation(previousPosition, currentPosition);
+    this.map.animateCamera({ heading: curRot, center: currentPosition });
+  }
+
+  changePosition = (latitude, longitude) => {
+    this.setState({
+      previousPosition: this.state.currentPosition,
+      currentPosition: { latitude, longitude },
+    });
+    this.updateMap();
+  }
+
+  _onViewableItemsChanged = ({ viewableItems }) => {
+    if (viewableItems.length > 0) {
+      const c = viewableItems[0].item;
+      this.changePosition(parseFloat(c.latitude), parseFloat(c.longitude));
+      this.marker[c.id].showCallout();
+    }
+  }
+
+  _getDirection = (latitude, longitude) => {
+    const { position } = this.state;
+    const origin = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    };
+    const destination = { latitude, longitude };
+    this.setState({ origin, destination });
+  }
+
   render() {
-    const { query, position, clinics } = this.state;
+    const {
+      query,
+      origin,
+      clinics,
+      position,
+      destination,
+      filtersVisible,
+      currentPosition,
+    } = this.state;
 
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
         {
-          position && (
+          position && position.coords && (
             <MapView
               style={styles.map}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={{
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                latitudeDelta: 0.0222,
-                longitudeDelta: 0.0222 * AppMetrics.aspectRatio,
-              }}
               customMapStyle={mapStyle}
+              provider={PROVIDER_GOOGLE}
+              ref={(ref) => { this.map = ref; }}
+              initialRegion={{
+                latitude: currentPosition.latitude,
+                longitude: currentPosition.longitude,
+                latitudeDelta: 0.0422,
+                longitudeDelta: 0.0422 * AppMetrics.aspectRatio,
+              }}
             >
               <Marker
                 key={0}
@@ -122,34 +260,117 @@ export default class Index extends Component {
                 coordinate={{
                   latitude: position.coords.latitude,
                   longitude: position.coords.longitude,
-                }} />
+                }}
+                image={require('@/assets/images/marker-2.5.png')}/>
               {
                 clinics && clinics.map(clinic => (
                   <Marker
                     key={clinic.id}
                     title={clinic.name}
+                    pinColor="#874676"
                     coordinate={{
-                      latitude: clinic.latitude,
-                      longitude: clinic.longitude,
+                      latitude: parseFloat(clinic.latitude),
+                      longitude: parseFloat(clinic.longitude),
                     }}
-                    image={require('@/assets/images/marker-2.5.png')}>
+                    ref={(ref) => { this.marker[clinic.id] = ref; }}>
                       <Callout tooltip={true}>
                         <ClinicCallout clinic={clinic} />
                       </Callout>
                     </Marker>
                 ))
               }
+              {
+                origin && destination && (
+                  <MapViewDirections
+                    origin={origin}
+                    strokeWidth={2}
+                    destination={destination}
+                    apikey={GOOGLE_MAPS_APIKEY}
+                    strokeColor={AppStyles.colors.primaryColor} />
+                )
+              }
             </MapView>
           )
         }
         <SafeAreaView style={styles.content}>
-          <Searchbar
-            value={query}
-            placeholder="Search"
-            style={styles.searchBox}
-            inputStyle={styles.searchInput}
-            onChangeText={q => this.setState({ query: q })}
-          />
+          <View>
+            <Searchbar
+              value={query}
+              placeholder="Search"
+              style={styles.searchBox}
+              inputStyle={styles.searchInput}
+              onChangeText={this._handleSearch}
+              icon={filtersVisible ? 'filter-list' : 'search'}
+              onIconPress={() => this.setState({ filtersVisible: !filtersVisible })}
+            />
+            {
+              filtersVisible && (
+                <Surface style={styles.filterContainer}>
+                  <View style={styles.filterRow}>
+                    <Text style={styles.filterLabel}>Search Radius</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                      <TextInput
+                        value={this.state.radius}
+                        keyboardType="number-pad"
+                        style={styles.filterInput}
+                        onChangeText={text => this.setState({ radius: text })}
+                        />
+                      <Menu
+                        visible={this.state.menuVisible}
+                        onDismiss={() => this.setState({ menuVisible: false })}
+                        anchor={
+                          <Button
+                            type="text"
+                            onPress={() => this.setState({ menuVisible: true })}>
+                            {this.state.mode === 'km' ? 'KILOMETERS' : 'MILES'}
+                          </Button>
+                        }
+                      >
+                        <Menu.Item onPress={() => this.setState({ mode: 'mi' })} title="MILES" />
+                        <Menu.Item onPress={() => this.setState({ mode: 'km' })} title="KILOMETERS" />
+                      </Menu>
+                    </View>
+                  </View>
+
+                  <View style={styles.filterRow}>
+                    <Text style={styles.filterLabel}>Number of Results</Text>
+                    <Menu
+                        visible={this.state.perPageVisible}
+                        onDismiss={() => this.setState({ perPageVisible: false })}
+                        anchor={
+                          <Button
+                            type="text"
+                            onPress={() => this.setState({ perPageVisible: true })}>
+                            {this.state.perPage}
+                          </Button>
+                        }
+                      >
+                        <Menu.Item onPress={() => this.setState({ perPage: 5 })} title="5" />
+                        <Menu.Item onPress={() => this.setState({ perPage: 10 })} title="10" />
+                        <Menu.Item onPress={() => this.setState({ perPage: 20 })} title="20" />
+                        <Menu.Item onPress={() => this.setState({ perPage: 50 })} title="50" />
+                        <Menu.Item onPress={() => this.setState({ perPage: 100 })} title="100" />
+                        <Menu.Item onPress={() => this.setState({ perPage: 200 })} title="200" />
+                      </Menu>
+                  </View>
+                </Surface>
+              )
+            }
+          </View>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={clinics}
+              horizontal={true}
+              decelerationRate="fast"
+              snapToAlignment="center"
+              keyExtractor={item => item.id.toString() }
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={AppMetrics.width - 70}
+              ref={(ref) => { this.clinicList = ref; }}
+              renderItem={item => this._renderClinicItem(item)}
+              onViewableItemsChanged={this._onViewableItemsChanged}
+              viewabilityConfig={{ itemVisiblePercentThreshold: 90 }} />
+          </View>
         </SafeAreaView>
       </View>
     );

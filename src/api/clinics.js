@@ -1,10 +1,8 @@
 import http from '@/api/http';
 import { BASE_API } from './constants';
+import { toUrlEncoded } from './helpers';
 
 export const DEFAULT_PAGINATION = 20;
-
-const toUrlEncoded = obj => Object.keys(obj)
-  .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');
 
 export function getClinicsAPI(params) {
   const q = toUrlEncoded(params);

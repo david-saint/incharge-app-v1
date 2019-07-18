@@ -10,3 +10,6 @@ export function throwError(e) {
 export function log(m) { console.log(m); }
 
 export const has = Object.prototype.hasOwnProperty;
+
+export const toUrlEncoded = obj => Object.keys(obj)
+  .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');

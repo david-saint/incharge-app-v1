@@ -33,3 +33,12 @@ export function submitProfileAPI(profile) {
       .catch(({ response }) => reject(response));
   });
 }
+
+export function setPlanAPI(plan) {
+  return new Promise((resolve, reject) => {
+    http
+      .post(`${BASE_API}user/profile/algorithm`, { plan })
+      .then(({ data }) => resolve(data))
+      .catch(({ response }) => reject(response));
+  });
+}

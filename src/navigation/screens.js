@@ -1,6 +1,7 @@
 // stores constant representation of the screen names.
 export const MAINBASE = 'MainStack';
 export const SPLASH = 'SplashScreen';
+export const SETTINGS = 'SettingsScreen';
 export const PROFILING = 'ProfilingStack';
 export const AUTH = 'AuthenticationScreens';
 export const AUTHBASE = 'AuthenticationBase';
