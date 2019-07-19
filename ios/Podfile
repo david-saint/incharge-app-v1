@@ -40,6 +40,8 @@ target 'InCharge' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
+
   # react-native-maps dependencies
   pod 'react-native-maps', path: rn_maps_path
   pod 'react-native-google-maps', path: rn_maps_path  # Uncomment this line if you want to support GoogleMaps on iOS

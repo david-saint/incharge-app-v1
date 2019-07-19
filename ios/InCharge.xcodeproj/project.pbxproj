@@ -42,6 +42,8 @@
 		9EE1647375E9458B96BDDCD7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26218312BBAE487A8D3583FC /* Zocial.ttf */; };
 		9F061A240CD84D7DA246994D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81C852228C9844E499CFAC4F /* Octicons.ttf */; };
 		9FAE93830013495BAEA8364E /* JosefinSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4513F5C73DEA4CF0A25067F7 /* JosefinSans-Light.ttf */; };
+		B05469E1213F414EB19FC435 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96671331580E4EBD9C260467 /* Oswald-Bold.ttf */; };
+		B3BD1C1F13FF4C11AB7DF837 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 352CFA136079421291379FAA /* Oswald-Regular.ttf */; };
 		B8C0B594B630F159CCE7FD21 /* libPods-InChargeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D487EBE87939BAF13CEB44 /* libPods-InChargeTests.a */; };
 		CD32402040BA411CA9022463 /* JosefinSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221B2D9A9B5343EFB2FF356F /* JosefinSans-SemiBold.ttf */; };
 		CF1C5CA0F0E6400B8C797046 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D785C02704B4DB5A56B8D98 /* Lato-Medium.ttf */; };
@@ -92,6 +94,7 @@
 		2D02E47B1E0B4A5D006451C7 /* InCharge-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InCharge-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* InCharge-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "InCharge-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D52523545C34D14A1499D1C /* JosefinSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Thin.ttf"; path = "../src/assets/fonts/JosefinSans-Thin.ttf"; sourceTree = "<group>"; };
+		352CFA136079421291379FAA /* Oswald-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oswald-Regular.ttf"; path = "../src/assets/fonts/Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		36D83C8DB37DED962D6270CD /* libPods-InCharge-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InCharge-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		389639157FB7758C0E818279 /* Pods-InCharge-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InCharge-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-InCharge-tvOSTests/Pods-InCharge-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		4513F5C73DEA4CF0A25067F7 /* JosefinSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Light.ttf"; path = "../src/assets/fonts/JosefinSans-Light.ttf"; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		8A508513F8DB41B1A01E91D7 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		8D5D7B2C517742F0B4867D29 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		952D384ED9614CEDB03BF98A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		96671331580E4EBD9C260467 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oswald-Bold.ttf"; path = "../src/assets/fonts/Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		A245483373DE469CB12468D3 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Regular.ttf"; path = "../src/assets/fonts/JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
 		AE1BA43265F4B37EB2A37E71 /* Pods-InChargeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InChargeTests.release.xcconfig"; path = "Target Support Files/Pods-InChargeTests/Pods-InChargeTests.release.xcconfig"; sourceTree = "<group>"; };
 		B1080ECB3ADF488988DFE508 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 				81C852228C9844E499CFAC4F /* Octicons.ttf */,
 				B688F866BAA74C148CD7F2FE /* SimpleLineIcons.ttf */,
 				26218312BBAE487A8D3583FC /* Zocial.ttf */,
+				96671331580E4EBD9C260467 /* Oswald-Bold.ttf */,
+				352CFA136079421291379FAA /* Oswald-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -394,6 +400,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -471,6 +482,8 @@
 				9F061A240CD84D7DA246994D /* Octicons.ttf in Resources */,
 				5D87BC094ADB405F9F738275 /* SimpleLineIcons.ttf in Resources */,
 				9EE1647375E9458B96BDDCD7 /* Zocial.ttf in Resources */,
+				B05469E1213F414EB19FC435 /* Oswald-Bold.ttf in Resources */,
+				B3BD1C1F13FF4C11AB7DF837 /* Oswald-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

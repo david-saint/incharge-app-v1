@@ -1,5 +1,10 @@
 import moment from 'moment';
 import {
+  LOGOUT_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+} from '@/features/logout/actions';
+import {
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -34,6 +39,7 @@ const INIT_STATE = {
   email_confirmed: false,
   phone_confirmed: false,
   lastLogin: moment('1995-12-25').format('YYYY-MM-DD HH:mm:ss'),
+  lastLogout: moment('1995-12-25').format('YYYY-MM-DD HH:mm:ss'),
 };
 
 const auth = (state = INIT_STATE, { type, payload }) => {
@@ -84,6 +90,25 @@ const auth = (state = INIT_STATE, { type, payload }) => {
         ...INIT_STATE,
         error: true,
         loading: false,
+      };
+
+    case LOGOUT_REQUEST:
+      return {
+        ...state,
+        lastLogin: moment('1995-12-25').format('YYYY-MM-DD HH:mm:ss'),
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        token: '',
+        lastLogout: moment().format('YYYY-MM-DD HH:mm:ss'),
+      };
+
+    case LOGOUT_FAILED:
+      return {
+        ...state,
+        error: true,
       };
 
     case USERFETCH_FAILED:

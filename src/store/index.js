@@ -6,20 +6,15 @@ import {
 import thunk from 'redux-thunk';
 import rootReducer from '@/reducers';
 import { createLogger } from 'redux-logger';
-import login from '@/features/login/middlewares';
-import profiling from '@/features/profiling/middlewares';
+import customMiddlewares from '@/middlewares';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
-import passwordreset from '@/features/password_reset/middlewares';
-import auth from '@/features/authentication/middlewares/authCheck';
 
 const config = {
   key: 'root',
   storage: AsyncStorage,
   debug: true, // to get useful logging
 };
-
-const customMiddlewares = [auth, login, passwordreset, profiling];
 
 const middlewares = [...customMiddlewares];
 

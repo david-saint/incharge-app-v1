@@ -36,3 +36,12 @@ export function passwordResetAPI(user) {
       .catch(({ response }) => reject(response));
   });
 }
+
+export function logoutAPI() {
+  return new Promise((resolve, reject) => {
+    http
+      .post(`${BASE_API}user/logout`)
+      .then(({ data }) => resolve(data))
+      .catch(({ response }) => reject(response));
+  });
+}

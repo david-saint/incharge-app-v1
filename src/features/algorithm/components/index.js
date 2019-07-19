@@ -149,9 +149,7 @@ export default class AlgorithmScreen extends Component {
                         }}
                         theme={{
                           fonts: {
-                            regular: {
-                              fontFamily: AppStyles.fonts.SECOND_FONT_REGULAR,
-                            },
+                            regular: AppStyles.fonts.SECOND_FONT_REGULAR,
                           },
                         }}>
                         Menstrual Period
@@ -171,9 +169,7 @@ export default class AlgorithmScreen extends Component {
                         }}
                         theme={{
                           fonts: {
-                            regular: {
-                              fontFamily: AppStyles.fonts.SECOND_FONT_REGULAR,
-                            },
+                            regular: AppStyles.fonts.SECOND_FONT_REGULAR,
                           },
                         }}>
                         Fertile Periods. This is when you're most likely to get pregnant.

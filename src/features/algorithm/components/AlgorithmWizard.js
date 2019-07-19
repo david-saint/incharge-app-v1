@@ -5,7 +5,6 @@ import { has } from '@/api/helpers';
 import AppStyles from '@/config/styles';
 import LottieView from 'lottie-react-native';
 import DatePicker from 'react-native-datepicker';
-import { getHumanPlan } from '@/features/algorithm/actions';
 import {
   Button,
   TextInput,

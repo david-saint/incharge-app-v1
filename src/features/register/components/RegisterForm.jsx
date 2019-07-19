@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   fieldControl: {
     width: '100%',
-    marginVertical: 15,
+    marginVertical: 5,
   },
   actionButton: {
     height: 48,
@@ -92,6 +92,8 @@ class RegisterForm extends Component<Props> {
             mode="flat"
             label="Name"
             name={'name'}
+            autoCompleteType="off"
+            autoCorrect={false}
             component={PaperInput}
             validate={[required(), length({ min: 2 })]}
             />

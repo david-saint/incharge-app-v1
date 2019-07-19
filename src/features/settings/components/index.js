@@ -17,7 +17,7 @@ import styles from './styles';
 import LogoutSVG from '@/components/svg/LogoutSVG';
 
 export default class SettingsScreen extends Component {
-  static navigationOptions = () => ({
+  static navigationOptions = ({ navigation }) => ({
     title: 'Settings',
     headerTransparent: true,
     headerBackImage: <BackArrow />,
@@ -31,12 +31,23 @@ export default class SettingsScreen extends Component {
       marginVertical: 15,
       marginHorizontal: 30,
     },
-    headerRight: <TouchableOpacity><LogoutSVG /></TouchableOpacity>,
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => navigation.state.params.logout()}>
+        <LogoutSVG />
+      </TouchableOpacity>
+    ),
   })
 
   state = {
-    isLocationEnabled: false,
-    isNotificationEnabled: false,
+    isLocationEnabled: true,
+    isNotificationEnabled: true,
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      logout: this.props.logout,
+    });
   }
 
   render() {
@@ -56,6 +67,7 @@ export default class SettingsScreen extends Component {
             <View style={styles.actions}>
               <Text style={styles.actionText}>Allow Notification</Text>
               <Switch
+                disabled={true}
                 value={isNotificationEnabled}
                 color={AppStyles.colors.primaryColor}
                 onValueChange={() => {
@@ -69,6 +81,7 @@ export default class SettingsScreen extends Component {
             <View style={styles.actions}>
               <Text style={styles.actionText}>Automatic Location</Text>
               <Switch
+                disabled={true}
                 value={isLocationEnabled}
                 color={AppStyles.colors.primaryColor}
                 onValueChange={() => {
@@ -106,5 +119,6 @@ export default class SettingsScreen extends Component {
 }
 
 SettingsScreen.propTypes = {
+  logout: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
 };

@@ -41,7 +41,7 @@ export default class AuthenticationRegister extends Component {
           <KeyboardAvoidingView
             style={styles.formContainer}
             contentContainerStyle={styles.formContainer}
-            behavior={Platform.OS === 'ios' ? 'position' : ''}>
+            behavior={Platform.OS === 'ios' ? 'position' : 'padding'}>
             <View style={styles.formContainer}>
               <RegisterForm onRegister={this.props.register} />
             </View>

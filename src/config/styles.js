@@ -34,6 +34,8 @@ const AppStyles = {
     SECOND_FONT_REGULAR: 'Lato-Regular',
     SECOND_FONT_HAIRLINE: 'Lato-Hairline',
     SECOND_FONT_SEMIBOLD: 'Lato-SemiBold',
+    OSWALD: 'Oswald-Bold',
+    OSWALD_REGULAR: 'Oswald-Regular',
   },
 };
 

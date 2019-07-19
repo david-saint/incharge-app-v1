@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { setToken } from '@/api/http';
 import AppStyles from '@/config/styles';
@@ -10,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from '@react-native-community/geolocation';
 import { getClinicsAPI, DEFAULT_PAGINATION } from '@/api/clinics';
+import NotificationService from '@/features/notifications/service';
 import {
   Menu,
   Button,
@@ -67,6 +69,45 @@ export default class Index extends Component {
   }
 
   marker = {}
+
+  constructor(props) {
+    super(props);
+    this.notification = new NotificationService(this.onRegister, this.onNotification);
+  }
+
+  onRegister = () => console.log('notifications registered')
+
+  onNotification = ({ foreground, userInteraction }) => {
+    if (foreground || userInteraction) {
+      Alert.alert(
+        'Pill Reminder',
+        'Have you taken your pills yet?',
+        [
+          {
+            text: 'No',
+            onPress: () => {
+              this.props.updateReminderTime(
+                moment(this.props.reminder.next_reminder_time).add(30, 'minutes').format(),
+              );
+            },
+            style: 'cancel',
+          },
+          {
+            text: 'Yes',
+            onPress: () => {
+              this.props.updateReminderTime(
+                moment(this.props.reminder.next_reminder_time).add(1, 'day').format(),
+              );
+            },
+          },
+        ],
+      );
+    } else {
+      this.props.updateReminderTime(
+        moment(this.props.reminder.next_reminder_time).add(30, 'minutes').format(),
+      );
+    }
+  }
 
   componentDidMount() {
     // Get the user's current location
@@ -267,7 +308,7 @@ export default class Index extends Component {
                   <Marker
                     key={clinic.id}
                     title={clinic.name}
-                    pinColor="#874676"
+                    pinColor={AppStyles.colors.primaryDark}
                     coordinate={{
                       latitude: parseFloat(clinic.latitude),
                       longitude: parseFloat(clinic.longitude),
@@ -379,5 +420,7 @@ export default class Index extends Component {
 
 Index.propTypes = {
   auth: PropTypes.object.isRequired,
+  reminder: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  updateReminderTime: PropTypes.func.isRequired,
 };

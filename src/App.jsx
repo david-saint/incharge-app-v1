@@ -30,15 +30,9 @@ const theme = {
     // TODO: Add the default colors for InCharge.
   },
   fonts: {
-    thin: {
-      fontFamily: AppStyles.fonts.FONT_THIN,
-    },
-    light: {
-      fontFamily: AppStyles.fonts.FONT_LIGHT,
-    },
-    regular: {
-      fontFamily: AppStyles.fonts.FONT_REGULAR,
-    },
+    thin: AppStyles.fonts.FONT_THIN,
+    light: AppStyles.fonts.FONT_LIGHT,
+    regular: AppStyles.fonts.FONT_REGULAR,
   },
 };
 
