@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const config = {
   key: 'root',
+  blacklist: ['form'],
   storage: AsyncStorage,
   debug: true, // to get useful logging
 };
@@ -20,9 +21,9 @@ const middlewares = [...customMiddlewares];
 
 middlewares.push(thunk);
 
-if (__DEV__) {
-  middlewares.push(createLogger({ timestamps: true, duration: true }));
-}
+// if (__DEV__) {
+//   middlewares.push(createLogger({ timestamps: true, duration: true }));
+// }
 
 // TODO: define an initial state.
 const initialState = {};
@@ -41,6 +42,8 @@ const store = createStore(reducers, initialState, composeEnhancers(...enhancers)
 const persistor = persistStore(store, persistConfig, () => {
   // console.log('Test', store.getState());
 });
+
+persistor.purge();
 
 const configureStore = () => ({ persistor, store });
 
