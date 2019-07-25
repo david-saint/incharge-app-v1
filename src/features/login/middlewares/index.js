@@ -1,4 +1,5 @@
-import { PROFILING } from '@/navigation/screens';
+import moment from 'moment';
+import { MAPSCREEN, PROFILING } from '@/navigation/screens';
 import { createMiddleware } from '@/store/helpers';
 import NavigationService from '@/navigation/service';
 
@@ -8,8 +9,12 @@ const loggedIn = createMiddleware([
   {
     // Redirect user to index page on successful TODO delete
     action: LOGIN_SUCCESS,
-    afterHandler: () => {
-      NavigationService.navigate(PROFILING);
+    afterHandler: (state) => {
+      const { profile } = state;
+      if (moment(profile.last_fetched).isAfter(moment('1995-12-25').add(1, 'day'))) {
+        return NavigationService.navigate(MAPSCREEN);
+      }
+      return NavigationService.navigate(PROFILING);
     },
   },
 ]);

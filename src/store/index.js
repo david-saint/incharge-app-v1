@@ -43,8 +43,6 @@ const persistor = persistStore(store, persistConfig, () => {
   // console.log('Test', store.getState());
 });
 
-persistor.purge();
-
 const configureStore = () => ({ persistor, store });
 
 export default configureStore;

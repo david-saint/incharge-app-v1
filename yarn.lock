@@ -5243,6 +5243,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-android-location-enabler@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-android-location-enabler/-/react-native-android-location-enabler-1.2.0.tgz#82ddf9743b257360c94647243d92497960005adc"
+  integrity sha512-9NGhjkfU5RMmBjSS2Rd2yYj9TBJNPhgXySo/FrDWAtN+137eN3F/KkOtEE5JFWzqGmBqp3GyEufCCOJf59R37w==
+
 react-native-calendars@^1.198.0:
   version "1.198.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.198.0.tgz#ba225e3c13b03e76974077bbd375083e48eb216c"

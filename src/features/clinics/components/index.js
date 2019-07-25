@@ -12,6 +12,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from '@react-native-community/geolocation';
 import { getClinicsAPI, DEFAULT_PAGINATION } from '@/api/clinics';
 import NotificationService from '@/features/notifications/service';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import {
   Menu,
   Button,
@@ -29,6 +30,7 @@ import {
   Alert,
   Image,
   FlatList,
+  Platform,
   TextInput,
   StatusBar,
 } from 'react-native';
@@ -126,7 +128,21 @@ export default class Index extends Component {
         });
         this._getClinics();
       },
-      error => Alert.alert('Error', JSON.stringify(error)),
+      (error) => {
+        if (Platfrom.OS === 'android') {
+          RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+            interval: 1000,
+            fastInterval: 500,
+          })
+            .then((data) => {
+              if (data === 'already-enabled') {
+                Alert.alert('Error', JSON.stringify(error));
+              }
+            }).catch((err) => {
+              Alert.alert('Error', JSON.stringify(error));
+            });
+        }
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
     // Set the bearer token just in case

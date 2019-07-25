@@ -8,9 +8,8 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+    width: '100%',
     justifyContent: 'space-around',
-    // b
   },
 });
 
