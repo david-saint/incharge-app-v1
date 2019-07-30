@@ -21,9 +21,9 @@ const middlewares = [...customMiddlewares];
 
 middlewares.push(thunk);
 
-// if (__DEV__) {
-//   middlewares.push(createLogger({ timestamps: true, duration: true }));
-// }
+if (__DEV__) {
+  middlewares.push(createLogger({ timestamps: true, duration: true }));
+}
 
 // TODO: define an initial state.
 const initialState = {};

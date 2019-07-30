@@ -42,7 +42,7 @@ export default class PillScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.notification = new NotificationService(this.onRegister, this.onNotification);
+    this.notification = NotificationService.configure(this.onRegister, this.onNotification);
   }
 
   onRegister = () => console.log('notifications registered')

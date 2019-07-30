@@ -74,7 +74,7 @@ export default class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.notification = new NotificationService(this.onRegister, this.onNotification);
+    this.notification = NotificationService.configure(this.onRegister, this.onNotification);
   }
 
   onRegister = () => console.log('notifications registered')
@@ -129,7 +129,7 @@ export default class Index extends Component {
         this._getClinics();
       },
       (error) => {
-        if (Platfrom.OS === 'android') {
+        if (Platform.OS === 'android') {
           RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
             interval: 1000,
             fastInterval: 500,

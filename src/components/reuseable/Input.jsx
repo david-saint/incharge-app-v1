@@ -35,16 +35,27 @@ const styles = StyleSheet.create({
 type Props = {} & FieldProps;
 
 class Input extends Component<Props> {
+  state = {
+    value: this.props.value || '',
+  }
+
+  _textChanged = (text, ...args) => {
+    this.setState({
+      value: text,
+    });
+    this.props.input.onChange(text, ...args);
+  }
+
   render() {
     const { input, label, meta: { touched, error } } = this.props;
     return (
       <View style={styles.contain}>
         <TextInput
           {...this.props}
-          value={input.value}
+          value={this.state.value}
           onBlur={input.onBlur}
           onFocus={input.onFocus}
-          onChangeText={input.onChange}
+          onChangeText={this._textChanged}
           style={[styles.input, {
             borderColor: (touched && error) ? '#B00020' : '#EAEAEA',
           }]}

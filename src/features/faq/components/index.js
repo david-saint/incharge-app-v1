@@ -6,7 +6,10 @@ import BackArrow from '@/components/svg/BackArrowSVG';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {
   List,
+  Title,
   Appbar,
+  Paragraph,
+  Subheading,
 } from 'react-native-paper';
 import {
   View,
@@ -78,23 +81,46 @@ export default class FaQScreen extends Component {
     const { active } = this.state;
     const group = this.props.faq[active[0]][active[1]];
     return (
-      <ScrollView>
+      <ScrollView
+        style={{ padding: 15 }}>
         <TouchableOpacity
-          style={{ padding: 15 }}
+          style={{ padding: 0, paddingVertical: 15 }}
           onPress={() => this.setState({ active: null })}>
           <BackArrow />
         </TouchableOpacity>
-        <List.Section>
-          <List.Subheader>{group.title}</List.Subheader>
-          {
-            group.content.map((content, index) => (
-              <List.Item
-                key={index}
-                title={content.title}
-                description={content.values.join('\n')} />
-            ))
-          }
-       </List.Section>
+        <Title
+          style={{
+            margin: 15,
+            fontSize: 24,
+            textAlign: 'center',
+            fontFamily: AppStyles.fonts.FONT_LIGHT,
+          }}>
+          {group.title}
+        </Title>
+        {
+          group.content.map((content, index) => (
+            <View
+              key={index}
+              style={{
+                marginVertical: 15,
+              }}>
+              <Subheading
+                style={{
+                  lineHeight: 26,
+                  fontFamily: AppStyles.fonts.SECOND_FONT_BOLD,
+                }}>
+                {content.title}
+              </Subheading>
+              <Paragraph
+                style={{
+                  lineHeight: 26,
+                  fontFamily: AppStyles.fonts.SECOND_FONT_REGULAR,
+                }}>
+                {content.values.join('\n')}
+              </Paragraph>
+            </View>
+          ))
+        }
       </ScrollView>
     );
   }

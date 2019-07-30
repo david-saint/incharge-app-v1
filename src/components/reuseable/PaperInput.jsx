@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import AppStyles from '@/config/styles';
 import type { FieldProps } from 'redux-form';
 import { TextInput } from 'react-native-paper';
@@ -27,18 +28,29 @@ const styles = StyleSheet.create({
 type Props = {} & FieldProps;
 
 class PaperInput extends Component<Props> {
+  state = {
+    value: this.props.value || '',
+  }
+
+  _textChanged = (text, ...args) => {
+    this.setState({
+      value: text,
+    });
+    this.props.input.onChange(text, ...args);
+  }
+
   render() {
     const { input, label, meta: { touched, error } } = this.props;
     return (
       <View>
         <TextInput
           {...this.props}
-          value={input.value}
+          value={this.state.value}
           onBlur={input.onBlur}
           onFocus={input.onFocus}
           style={styles.textinput}
           error={touched && error}
-          onChangeText={input.onChange}
+          onChangeText={this._textChanged}
           />
         {
           touched && (
