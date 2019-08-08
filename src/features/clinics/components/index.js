@@ -33,6 +33,7 @@ import {
   Platform,
   TextInput,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 
 import styles from './styles';
@@ -134,12 +135,53 @@ export default class Index extends Component {
             interval: 1000,
             fastInterval: 500,
           })
-            .then((data) => {
+            .then(async (data) => {
               if (data === 'already-enabled') {
-                Alert.alert('Error', JSON.stringify(error));
+                try {
+                  const fineGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+                  const coarseGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+                  if (!fineGranted) {
+                    const granted = await PermissionsAndroid.request(
+                      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                      {
+                        title: 'Incharge',
+                        message:
+                          'Incharge needs access to your fine location to get clinics near you',
+                        buttonNeutral: 'Ask Me Later',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                      },
+                    );
+                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                      console.log('You can use the camera');
+                    } else {
+                      Alert.alert('Error', JSON.stringify(error));
+                    }
+                  }
+                  if (!coarseGranted) {
+                    const granted = await PermissionsAndroid.request(
+                      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+                      {
+                        title: 'Incharge',
+                        message:
+                          'Incharge needs access to your coarse location to get clinics near you',
+                        buttonNeutral: 'Ask Me Later',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                      },
+                    );
+                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                      console.log('You can use the camera');
+                    } else {
+                      Alert.alert('Error', JSON.stringify(error));
+                    }
+                  }
+                } catch {
+                  Alert.alert('Error', JSON.stringify(error));
+                }
               }
             }).catch((err) => {
-              Alert.alert('Error', JSON.stringify(error));
+              Alert.alert('Error - Location Enabler', JSON.stringify(error));
             });
         }
       },

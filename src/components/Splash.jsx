@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import HouseSVG from './svg/HouseSVG';
+import HouseSVG from './svg/LogoSVG';
 
 const styles = StyleSheet.create({
   container: {
