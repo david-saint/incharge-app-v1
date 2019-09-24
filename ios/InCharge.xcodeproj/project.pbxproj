@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* InChargeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* InChargeTests.m */; };
 		0B6334BF504B42B9972ED6C5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEB9D66B3FA74EDD967679F0 /* Feather.ttf */; };
@@ -20,6 +21,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* InChargeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* InChargeTests.m */; };
+		4C6DC7CDE67D449F920D01A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBBDC611D984F7AAE5032EA /* libz.tbd */; };
 		4F7CE8D6CEED4EF3911230A6 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 066A2EDF7869468590537669 /* Lato-Regular.ttf */; };
 		4FAD51D1EDCC44D4B2FE6BB3 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0EBD2B24D3A4211BB5488FF /* FontAwesome5_Regular.ttf */; };
 		51A2C295C95A4100963F9043 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D5D7B2C517742F0B4867D29 /* MaterialCommunityIcons.ttf */; };
@@ -51,7 +53,6 @@
 		EA9A84DC7CAB42E2935A9D58 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A245483373DE469CB12468D3 /* JosefinSans-Regular.ttf */; };
 		F0D18FFEF9F942DBB02CA73E /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 952D384ED9614CEDB03BF98A /* EvilIcons.ttf */; };
 		F66E6DC5233A869A8CD175C9 /* libPods-InCharge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E4A79D5887843C87EE9948E /* libPods-InCharge.a */; };
-		4C6DC7CDE67D449F920D01A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBBDC611D984F7AAE5032EA /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		8D5D7B2C517742F0B4867D29 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		952D384ED9614CEDB03BF98A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		96671331580E4EBD9C260467 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oswald-Bold.ttf"; path = "../src/assets/fonts/Oswald-Bold.ttf"; sourceTree = "<group>"; };
+		9DBBDC611D984F7AAE5032EA /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A245483373DE469CB12468D3 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Regular.ttf"; path = "../src/assets/fonts/JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
 		AE1BA43265F4B37EB2A37E71 /* Pods-InChargeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InChargeTests.release.xcconfig"; path = "Target Support Files/Pods-InChargeTests/Pods-InChargeTests.release.xcconfig"; sourceTree = "<group>"; };
 		B1080ECB3ADF488988DFE508 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -132,7 +134,6 @@
 		FC0ACCB3DB2CAA1D07394626 /* Pods-InCharge-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InCharge-tvOS.release.xcconfig"; path = "Target Support Files/Pods-InCharge-tvOS/Pods-InCharge-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		FDA19C5E808F512D9C3C7B24 /* libPods-InCharge-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-InCharge-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEB9D66B3FA74EDD967679F0 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		9DBBDC611D984F7AAE5032EA /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,14 +307,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C562430D65AE49ED99B7D379 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			path = Application;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -410,7 +403,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 7HY3VL25LZ;
 						LastSwiftMigration = 1020;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -837,9 +832,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GATO Health Trust Ltd. (7HY3VL25LZ)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 7HY3VL25LZ;
 				INFOPLIST_FILE = InCharge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -882,11 +881,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gatohealth.incharge;
 				PRODUCT_NAME = InCharge;
+				PROVISIONING_PROFILE_SPECIFIER = com.gatohealth.incharge;
 				SWIFT_OBJC_BRIDGING_HEADER = "InCharge-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -897,8 +898,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GATO Health Trust Ltd. (7HY3VL25LZ)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7HY3VL25LZ;
 				INFOPLIST_FILE = InCharge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -936,15 +941,18 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-maps\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/yoga\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gatohealth.incharge;
 				PRODUCT_NAME = InCharge;
+				PROVISIONING_PROFILE_SPECIFIER = com.gatohealth.incharge;
 				SWIFT_OBJC_BRIDGING_HEADER = "InCharge-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
