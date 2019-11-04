@@ -97,7 +97,7 @@ class SexInformationForm extends Component<Props> {
             name={'marital_status'}
             component={Picker}
             placeholder={{ label: 'Marital Status' }}
-            validate={[required()]}
+            validate={[]}
             />
         </View>
         <View style={styles.fieldControl}>
@@ -117,7 +117,7 @@ class SexInformationForm extends Component<Props> {
             name={'sexually_active'}
             placeholder={{ label: 'Are you sexually active?' }}
             component={Picker}
-            validate={[required()]}
+            validate={[]}
             onChange={this._checkSexualActivity}
             />
         </View>
@@ -130,7 +130,7 @@ class SexInformationForm extends Component<Props> {
                 name={'pregnant'}
                 placeholder={{ label: 'Are you currently pregnant?' }}
                 component={Picker}
-                validate={[required()]}
+                validate={[]}
                 />
             </View>
           )
@@ -142,7 +142,7 @@ class SexInformationForm extends Component<Props> {
             name={'reason'}
             placeholder={{ label: 'Reason for Contraception' }}
             component={Picker}
-            validate={[required()]}
+            validate={[]}
             />
         </View>
         <Text style={styles.errors}>{error}</Text>

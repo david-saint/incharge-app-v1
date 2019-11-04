@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import AppStyles from '@/config/styles';
 import { PROFILING } from '@/navigation/screens';
 import { Switch } from 'react-native-paper';
+import { TERMS_URL } from '@/api/constants';
 import { SafeAreaView } from 'react-navigation';
 import BackArrow from '@/components/svg/BackArrowSVG';
 import {
   Text,
   View,
+  Linking,
   StatusBar,
   ScrollView,
   TouchableOpacity,
@@ -43,6 +45,17 @@ export default class SettingsScreen extends Component {
     isLocationEnabled: true,
     isNotificationEnabled: true,
   }
+
+  handleClick = () => {
+    Linking.canOpenURL(TERMS_URL).then((supported) => {
+      if (supported) {
+        Linking.openURL(TERMS_URL);
+      } else {
+        console.log('Could not open the url.', TERMS_URL);
+      }
+    });
+  };
+
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -101,15 +114,20 @@ export default class SettingsScreen extends Component {
 
           <View style={styles.card}>
             <Text style={styles.title}>Protection and Privacy</Text>
-            <View style={styles.actions}>
+            <View style={styles.actionsColumn}>
               <Text style={styles.actionText}>
-                Help protect your website and its users {'\n'}
-                with clear and fair website terms and {'\n'}
-                conditions. These terms and conditions {'\n'}
-                for a website set out key issues such as acceptable use,
-                privacy, cookies, registration and passwords, intellectual property, {'\n'}
-                links to other sites, termination and disclaimers of responsibility.
+                In-Charge is an app created by GATO Health Ltd
+                for the purpose of helping people know the option most suitable
+                to them for birth control, monitoring their menstrual cycle,
+                helping them locate family planning clinics close to them,
+                as well as other features related to reproductive health.
               </Text>
+              <TouchableOpacity
+                onPress={this.handleClick}>
+                <Text style={{ ...styles.actionText, ...styles.actionLink }}>
+                  Learn More
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

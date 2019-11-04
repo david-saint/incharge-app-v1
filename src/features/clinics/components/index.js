@@ -114,79 +114,83 @@ export default class Index extends Component {
 
   componentDidMount() {
     // Get the user's current location
-    Geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          position,
-          currentPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-          previousPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-        });
-        this._getClinics();
-      },
-      (error) => {
-        if (Platform.OS === 'android') {
-          RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
-            interval: 1000,
-            fastInterval: 500,
-          })
-            .then(async (data) => {
-              if (data === 'already-enabled') {
-                try {
-                  const fineGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-                  const coarseGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
-                  if (!fineGranted) {
-                    const granted = await PermissionsAndroid.request(
-                      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                      {
-                        title: 'Incharge',
-                        message:
-                          'Incharge needs access to your fine location to get clinics near you',
-                        buttonNeutral: 'Ask Me Later',
-                        buttonNegative: 'Cancel',
-                        buttonPositive: 'OK',
-                      },
-                    );
-                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                      console.log('You can use the camera');
-                    } else {
-                      Alert.alert('Error', JSON.stringify(error));
+    try {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          this.setState({
+            position,
+            currentPosition: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            },
+            previousPosition: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            },
+          });
+          this._getClinics();
+        },
+        (error) => {
+          if (Platform.OS === 'android') {
+            RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+              interval: 1000,
+              fastInterval: 500,
+            })
+              .then(async (data) => {
+                if (data === 'already-enabled') {
+                  try {
+                    const fineGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+                    const coarseGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+                    if (!fineGranted) {
+                      const granted = await PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                        {
+                          title: 'Incharge',
+                          message:
+                            'Incharge needs access to your fine location to get clinics near you',
+                          buttonNeutral: 'Ask Me Later',
+                          buttonNegative: 'Cancel',
+                          buttonPositive: 'OK',
+                        },
+                      );
+                      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        console.log('You can use the camera');
+                      } else {
+                        Alert.alert('Error', JSON.stringify(error));
+                      }
                     }
-                  }
-                  if (!coarseGranted) {
-                    const granted = await PermissionsAndroid.request(
-                      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-                      {
-                        title: 'Incharge',
-                        message:
-                          'Incharge needs access to your coarse location to get clinics near you',
-                        buttonNeutral: 'Ask Me Later',
-                        buttonNegative: 'Cancel',
-                        buttonPositive: 'OK',
-                      },
-                    );
-                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                      console.log('You can use the camera');
-                    } else {
-                      Alert.alert('Error', JSON.stringify(error));
+                    if (!coarseGranted) {
+                      const granted = await PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+                        {
+                          title: 'Incharge',
+                          message:
+                            'Incharge needs access to your coarse location to get clinics near you',
+                          buttonNeutral: 'Ask Me Later',
+                          buttonNegative: 'Cancel',
+                          buttonPositive: 'OK',
+                        },
+                      );
+                      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        console.log('You can use the camera');
+                      } else {
+                        Alert.alert('Error', JSON.stringify(error));
+                      }
                     }
+                  } catch {
+                    Alert.alert('Error', JSON.stringify(error));
                   }
-                } catch {
-                  Alert.alert('Error', JSON.stringify(error));
                 }
-              }
-            }).catch((err) => {
-              Alert.alert('Error - Location Enabler', JSON.stringify(error));
-            });
-        }
-      },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
+              }).catch((err) => {
+                Alert.alert('Error - Location Enabler', JSON.stringify(error));
+              });
+          }
+        },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      );
+    } catch (e) {
+      Alert.alert('ERROR: ');
+    }
     // Set the bearer token just in case
     const { auth: { token } } = this.props;
     setToken(token);
@@ -425,8 +429,14 @@ export default class Index extends Component {
                           </Button>
                         }
                       >
-                        <Menu.Item onPress={() => this.setState({ mode: 'mi' })} title="MILES" />
-                        <Menu.Item onPress={() => this.setState({ mode: 'km' })} title="KILOMETERS" />
+                        <Menu.Item
+                          title="MILES"
+                          onPress={() => this.setState({ mode: 'mi', menuVisible: false })}
+                        />
+                        <Menu.Item
+                          title="KILOMETERS"
+                          onPress={() => this.setState({ mode: 'km', menuVisible: false })}
+                        />
                       </Menu>
                     </View>
                   </View>
@@ -444,12 +454,30 @@ export default class Index extends Component {
                           </Button>
                         }
                       >
-                        <Menu.Item onPress={() => this.setState({ perPage: 5 })} title="5" />
-                        <Menu.Item onPress={() => this.setState({ perPage: 10 })} title="10" />
-                        <Menu.Item onPress={() => this.setState({ perPage: 20 })} title="20" />
-                        <Menu.Item onPress={() => this.setState({ perPage: 50 })} title="50" />
-                        <Menu.Item onPress={() => this.setState({ perPage: 100 })} title="100" />
-                        <Menu.Item onPress={() => this.setState({ perPage: 200 })} title="200" />
+                        <Menu.Item
+                          title="5"
+                          onPress={() => this.setState({ perPage: 5, perPageVisible: false })}
+                        />
+                        <Menu.Item
+                          title="10"
+                          onPress={() => this.setState({ perPage: 10, perPageVisible: false })}
+                        />
+                        <Menu.Item
+                          title="20"
+                          onPress={() => this.setState({ perPage: 20, perPageVisible: false })}
+                        />
+                        <Menu.Item
+                          title="50"
+                          onPress={() => this.setState({ perPage: 50, perPageVisible: false })}
+                        />
+                        <Menu.Item
+                          title="100"
+                          onPress={() => this.setState({ perPage: 100, perPageVisible: false })}
+                        />
+                        <Menu.Item
+                          title="200"
+                          onPress={() => this.setState({ perPage: 200, perPageVisible: false })}
+                        />
                       </Menu>
                   </View>
                 </Surface>

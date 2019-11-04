@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import AppStyles from '@/config/styles';
-import { Button } from 'react-native-paper';
+import AppMetrics from '@/config/metrics';
 import  type { FormProps } from 'redux-form';
 import { Field, reduxForm } from 'redux-form';
 import Input from '@/components/reuseable/Input';
 import Picker from '@/components/reuseable/Picker';
+import {
+  Menu,
+  Button,
+  Surface,
+} from 'react-native-paper';
 import {
   Text,
   View,
@@ -12,9 +17,6 @@ import {
   StyleSheet,
   LayoutAnimation,
 } from 'react-native';
-import {
-  required,
-} from 'redux-form-validators';
 
 import { sectors, religions } from './data';
 
@@ -62,13 +64,73 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontFamily: AppStyles.fonts.FONT_BOLD,
   },
+  filterContainer: {
+    padding: 4,
+    elevation: 5,
+    marginTop: 0,
+    minWidth: 220,
+    borderRadius: 4,
+  },
+  filterRow: {
+    height: 40,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  filterLabel: {
+    padding: 5,
+    fontSize: 11,
+    color: AppStyles.colors.inactiveGreyColor,
+    fontFamily: AppStyles.fonts.SECOND_FONT_LIGHT,
+  },
+  listContainer: {
+    height: 135,
+    width: '100%',
+    marginBottom: 15,
+    backgroundColor: 'transparent',
+  },
+  listItem: {
+    flex: 1,
+    padding: 20,
+    elevation: 4,
+    borderRadius: 10,
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    marginVertical: 10,
+    alignItems: 'center',
+    width: AppMetrics.width - 90,
+    justifyContent: 'space-between',
+    backgroundColor: AppStyles.colors.white,
+  },
+  fleft: {
+    alignItems: 'flex-start',
+  },
+  changeUnitText: {
+    fontSize: 10,
+    textTransform: 'uppercase',
+  },
+  inlineField: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  f1: {
+    flex: 1,
+    marginHorizontal: 8,
+  },
 });
 
 type Props = {} & FormProps;
 
 class MoreInformationForm extends Component<Props> {
   state = {
+    mode: 'kg',
+    heightMode: 'cm',
+    menuVisible: false,
     isChristian: false,
+    unitChanging: false,
+    perPageVisible: false,
   }
 
   _checkReligion = (e, value) => {
@@ -87,24 +149,131 @@ class MoreInformationForm extends Component<Props> {
       submitting,
       handleSubmit,
     } = this.props;
-    const { isChristian } = this.state;
+    const {
+      mode,
+      heightMode,
+      isChristian,
+      unitChanging,
+    } = this.state;
     return (
       <View style={styles.container}>
+        <View style={{ ...styles.fieldControl, ...styles.fleft }}>
+          {
+            !unitChanging && (
+              <Button
+                mode="text"
+                icon="timeline"
+                onPress={() => this.setState({ unitChanging: true })}>
+                <Text style={styles.changeUnitText}>Change Units</Text>
+              </Button>
+            )
+          }
+          {
+            unitChanging && (
+              <Surface style={styles.filterContainer}>
+                <View style={styles.filterRow}>
+                  <Text style={styles.filterLabel}>Weight Unit</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Menu
+                      visible={this.state.menuVisible}
+                      onDismiss={() => this.setState({ menuVisible: false })}
+                      anchor={
+                        <Button
+                          type="text"
+                          onPress={() => this.setState({ menuVisible: true })}>
+                          <Text style={styles.changeUnitText}>{this.state.mode}</Text>
+                        </Button>
+                      }
+                    >
+                      <Menu.Item
+                        title="KG"
+                        onPress={() => this.setState({ mode: 'kg', menuVisible: false })}
+                      />
+                      <Menu.Item
+                        title="LBS"
+                        onPress={() => this.setState({ mode: 'lbs', menuVisible: false })}
+                      />
+                      <Menu.Item
+                        title="ST"
+                        onPress={() => this.setState({ mode: 'st', menuVisible: false })}
+                      />
+                    </Menu>
+                  </View>
+                </View>
+
+                <View style={styles.filterRow}>
+                  <Text style={styles.filterLabel}>Height Unit</Text>
+                  <Menu
+                      visible={this.state.perPageVisible}
+                      onDismiss={() => this.setState({ perPageVisible: false })}
+                      anchor={
+                        <Button
+                          type="text"
+                          onPress={() => this.setState({ perPageVisible: true })}>
+                          <Text style={styles.changeUnitText}>{this.state.heightMode}</Text>
+                        </Button>
+                      }
+                    >
+                      <Menu.Item
+                        title="cm"
+                        onPress={() => this.setState({ heightMode: 'cm', perPageVisible: false })}
+                      />
+                      <Menu.Item
+                        title="ft"
+                        onPress={() => this.setState({ heightMode: 'ft', perPageVisible: false })}
+                      />
+                      <Menu.Item
+                        title="m"
+                        onPress={() => this.setState({ heightMode: 'm', perPageVisible: false })}
+                      />
+                    </Menu>
+                </View>
+              </Surface>
+            )
+          }
+        </View>
         <View style={styles.fieldControl}>
-          <Field
-            label="height"
-            name={'height'}
-            placeholder="Height (in cm)"
-            component={Input}
-            autoCapitalize="none"
-            keyboardType="decimal-pad"
-            />
+          {
+            heightMode !== 'ft' ? (
+              <Field
+                label="height"
+                name={'height'}
+                placeholder={`Height (in ${heightMode.toUpperCase()})`}
+                component={Input}
+                autoCapitalize="none"
+                keyboardType="decimal-pad"
+                />
+            ) : (
+              <View style={styles.inlineField}>
+                <View style={styles.f1}>
+                  <Field
+                    label="height"
+                    name={'height'}
+                    placeholder="FT"
+                    component={Input}
+                    autoCapitalize="none"
+                    keyboardType="number-pad"
+                    />
+                </View>
+                <View style={styles.f1}>
+                  <Field
+                    placeholder="IN"
+                    component={Input}
+                    label="height-inches"
+                    autoCapitalize="none"
+                    name={'height-inches'}
+                    keyboardType="number-pad"
+                    />
+                  </View>
+              </View>
+            )
+          }
         </View>
         <View style={styles.fieldControl}>
           <Field
             label="weight"
             name={'weight'}
-            placeholder="Weight (in KG)"
+            placeholder={`Weight (in ${mode.toUpperCase()})`}
             component={Input}
             autoCapitalize="none"
             keyboardType="numeric"
@@ -127,7 +296,7 @@ class MoreInformationForm extends Component<Props> {
             component={Picker}
             onChange={this._checkReligion}
             placeholder={{ label: 'Religion' }}
-            validate={[required()]}
+            validate={[]}
             />
         </View>
         {
@@ -139,7 +308,7 @@ class MoreInformationForm extends Component<Props> {
                 name={'religion_sector'}
                 placeholder={{ label: 'Religious Sector' }}
                 component={Picker}
-                validate={[required()]}
+                validate={[]}
                 />
             </View>
           )
@@ -151,7 +320,6 @@ class MoreInformationForm extends Component<Props> {
             name={'education_level'}
             placeholder={{ label: 'Education Level' }}
             component={Picker}
-            validate={[required()]}
             />
         </View>
         <Text style={styles.errors}>{error}</Text>

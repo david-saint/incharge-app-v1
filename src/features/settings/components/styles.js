@@ -27,11 +27,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  actionsColumn: {
+    width: '100%',
+    marginTop: 18,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-around',
+  },
   actionText: {
     fontSize: 12,
     lineHeight: 22,
     color: '#929292',
     fontWeight: '400',
+  },
+  actionLink: {
+    fontSize: 11,
+    marginTop: 10,
+    lineHeight: 25,
+    color: AppStyles.colors.primaryColor,
   },
 });
 

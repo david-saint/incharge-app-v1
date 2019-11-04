@@ -95,7 +95,7 @@ class BasicDataForm extends Component<Props> {
             component={Input}
             autoCapitalize="none"
             keyboardType="number-pad"
-            validate={[required()]}
+            validate={[]}
             />
         </View>
         <View style={styles.fieldControl}>
@@ -105,7 +105,7 @@ class BasicDataForm extends Component<Props> {
             placeholder="Date Of Birth"
             component={DatePicker}
             color={AppStyles.colors.primaryColor}
-            validate={[required()]}
+            validate={[]}
           />
         </View>
         <View style={styles.fieldControl}>
@@ -115,7 +115,7 @@ class BasicDataForm extends Component<Props> {
             placeholder="Address"
             component={Input}
             autoCapitalize="words"
-            validate={[required()]}
+            validate={[]}
             />
         </View>
         <View style={styles.fieldControl}>

@@ -11,7 +11,7 @@ export const genders = [
   },
   {
     key: 3,
-    label: 'Other',
+    label: 'Prefer not to state',
     value: 'OTHER',
   },
 ];
