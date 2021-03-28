@@ -8,7 +8,6 @@ export function getAlgoAPI() {
         .then(({ data }) => {
           
           resolve(data);
-          console.log(data);
         })
         .catch(({ response }) => reject(response));
     });
