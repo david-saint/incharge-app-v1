@@ -93,7 +93,6 @@ export function setProfile(profile, token) {
         dispatch(setProfileSuccess(data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(setProfileFailed());
       });
   };
@@ -101,7 +100,6 @@ export function setProfile(profile, token) {
 
 export function getProfile() {
   return (dispatch) => {
-    console.log(dispatch);
   };
 }
 
@@ -134,7 +132,6 @@ export function getEducationLevels() {
         dispatch(getEducationLevelSuccess(data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(getEducationLevelFailed());
       });
   };
@@ -169,7 +166,6 @@ export function getContraceptionReasons() {
         dispatch(getContraceptionReasonSuccess(data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(getContraceptionReasonFailed());
       });
   };

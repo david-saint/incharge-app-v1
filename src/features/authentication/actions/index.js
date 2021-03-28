@@ -35,7 +35,6 @@ export function userFetch(token) {
         dispatch(userFetchSuccess(data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(userFetchFailed());
       });
   };

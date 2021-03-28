@@ -5,6 +5,8 @@ import { SETTINGS } from '@/navigation/screens';
 import Icon from 'react-native-vector-icons/Feather';
 import { Calendar } from 'react-native-calendars';
 import { getHumanPlan } from '@/features/algorithm/actions';
+// import { WebView } from 'react-native-webview';
+// import { BASE_API } from '@/api/constants';
 import {
   Appbar,
   Button,
@@ -12,6 +14,8 @@ import {
   Headline,
   Paragraph,
   Subheading,
+  ActivityIndicator,
+  Colors
 } from 'react-native-paper';
 import {
   View,
@@ -45,8 +49,12 @@ export default class AlgorithmScreen extends Component {
       period_length: algorithm.period_length,
       last_period_started_at: algorithm.last_period_started_at,
     });
+    
+    this.props.getAlgo(this.props.auth.name);
   }
-
+  LoadingIndicatorView() {
+    return <View style={[styles.indicatorCont, styles.indicatorHori]}><ActivityIndicator animating={true} color={Colors.red800} size="large"/></View>
+  }
   _renderNewAlgorithmWizard = () => {
     if (this.state.started === false) {
       return (
@@ -73,6 +81,7 @@ export default class AlgorithmScreen extends Component {
     return (
       <AlgorithmWizard
         auth={this.props.auth}
+        algorithm={this.props.algorithm}
         profile={this.props.profile}
         onChangePlan={this.props.setPlan}
         onChangePeriod={this.props.setPeriodCalculatorDetails}/>
@@ -224,6 +233,7 @@ export default class AlgorithmScreen extends Component {
 AlgorithmScreen.propTypes = {
   auth: PropTypes.object.isRequired,
   setPlan: PropTypes.func.isRequired,
+  getAlgo: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   algorithm: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,

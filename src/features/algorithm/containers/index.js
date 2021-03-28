@@ -4,12 +4,14 @@ import { bindActionCreators } from 'redux';
 import ContraceptionAlgorithmScreen from '../components';
 import { userFetch } from '@/features/authentication/actions';
 import {
+  getAlgo,
   setPlan,
   startAlgorithm,
   setPeriodCalculatorDetails,
 } from '@/features/algorithm/actions';
 
 const actions = {
+  getAlgo,
   setPlan,
   userFetch,
   startAlgorithm,

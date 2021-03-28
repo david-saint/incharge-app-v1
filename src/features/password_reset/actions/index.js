@@ -40,7 +40,6 @@ export function passwordReset(user) {
         });
       })
       .catch((errors) => {
-        console.log(errors);
         dispatch(passwordResetFailed('Failed to reset password', errors));
         throw new SubmissionError({
           ...throwError(errors),
