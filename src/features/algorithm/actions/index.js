@@ -1,17 +1,34 @@
 import moment from 'moment';
 import { setPlanAPI } from '@/api';
+import http from '@/api/http';
+import { BASE_API } from '@/api/constants';
 
 export const START_ALGORITHM = 'start-algorithm';
 export const SET_PLAN_FAILED = 'set-plan-failed';
 export const SET_PLAN_REQUEST = 'set-plan-request';
 export const SET_PLAN_SUCCESS = 'set-plan-success';
 export const SET_PERIOD_CALENDAR = 'set-period-calendar';
+export const GET_ALGO_REQUEST = 'get-Algo-request';
+export const SET_ALGO_SUCCESS = 'set-Algo-success';
 export const SET_PERIOD_CALCULATOR_DETAILS = 'set-period-calculator-details';
 
 export function setPlanRequest(plan) {
   return {
     type: SET_PLAN_REQUEST,
     payload: { plan },
+  };
+}
+
+export function getAlgoRequest() {
+  return {
+    type: GET_ALGO_REQUEST,
+    payload: {},
+  };
+}
+export function setAlgoSuccess(algo) {
+  return {
+    type: SET_ALGO_SUCCESS,
+    payload: { algo },
   };
 }
 
@@ -40,6 +57,24 @@ export function setPlan(plan) {
         dispatch(setPlanFailed());
       });
   };
+}
+
+export function getAlgo(userName) {
+	return (dispatch) => {
+		dispatch(getAlgoRequest());
+		http
+		.get(`${BASE_API}admin/algorithm`)
+		.then(({ data }) => {
+      let introData = {
+        text: `Hello, ${userName}!`,
+        actionType: null,
+        delay: 1000,
+        nextMove: 1
+      }
+      data.unshift(introData);
+			dispatch(setAlgoSuccess(data));
+		});
+	};
 }
 
 function calculatePeriods(cycle, period, last) {

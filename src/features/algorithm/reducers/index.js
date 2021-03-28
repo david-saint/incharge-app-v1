@@ -5,12 +5,15 @@ import {
   SET_PLAN_REQUEST,
   SET_PLAN_SUCCESS,
   SET_PERIOD_CALENDAR,
+  SET_ALGO_SUCCESS,
+  GET_ALGO_REQUEST,
   SET_PERIOD_CALCULATOR_DETAILS,
 } from '../actions';
 
 const INIT_STATE = {
   plan: '',
   marks: {},
+  algo: [],
   failed: false,
   persisted: false,
   last_retry: null,
@@ -45,6 +48,20 @@ const algorithm = (state = INIT_STATE, { type, payload }) => {
         persisted: true,
         last_retry: null,
         plan: payload.plan,
+      };
+
+    case SET_ALGO_SUCCESS:
+      return {
+        ...state,
+        failed: false,
+        persisted: true,
+        last_retry: null,
+        algo: payload.algo,
+      };
+    case GET_ALGO_REQUEST:
+      return {
+        ...state,
+        loading: true,
       };
 
     case SET_PERIOD_CALCULATOR_DETAILS:

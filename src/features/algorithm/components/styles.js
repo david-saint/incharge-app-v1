@@ -32,6 +32,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  indicatorCont: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  indicatorHori: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  }
 });
 
 export default styles;

@@ -134,7 +134,6 @@ export function getEducationLevels() {
         dispatch(getEducationLevelSuccess(data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(getEducationLevelFailed());
       });
   };
