@@ -83,8 +83,9 @@ class BasicDataForm extends Component<Props> {
       submitting,
       handleSubmit,
     } = this.props;
-
+    console.log(genders);
     return (
+      
       <View style={styles.container}>
         <View style={styles.fieldControl}>
           <Field
