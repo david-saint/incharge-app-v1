@@ -4,7 +4,7 @@ import { BASE_API } from './constants';
 export function getAlgoAPI() {
     return new Promise((resolve, reject) => {
       http
-        .get(`${BASE_API}admin/algo`)
+        .get(`${PUBLIC_URL}/algo`)
         .then(({ data }) => {
           
           resolve(data);

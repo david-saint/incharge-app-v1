@@ -8,7 +8,7 @@ import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.reactnativecommunity.geolocation.GeolocationPackage;
+// import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.horcrux.svg.SvgPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.oblador.vectoricons.VectorIconsPackage;

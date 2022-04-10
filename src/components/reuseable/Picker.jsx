@@ -42,7 +42,7 @@ class PickerDefault extends Component<Props> {
     const {
       input, items, label, meta: { touched, error },
     } = this.props;
-    return (
+    return (      
       <View style={styles.contain}>
         <Picker
           {...this.props}

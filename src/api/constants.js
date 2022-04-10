@@ -1,4 +1,4 @@
-export const PUBLIC_URL = 'https://incharge-app.test/';
+export const PUBLIC_URL = 'https://api.incharge.ga/';
 
 export const ADMIN_URL = 'https://admin.incharge-app.test/';
 
